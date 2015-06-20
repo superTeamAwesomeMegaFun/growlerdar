@@ -8,6 +8,10 @@
     "name": "Austin Hinderer",
     "url": "http://austinhinderer.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/austinhinderer/growlerdar.git"
+  },
   "license": "Apache 2.0",
   "engines": {
     "node": ">=0.10.3"
