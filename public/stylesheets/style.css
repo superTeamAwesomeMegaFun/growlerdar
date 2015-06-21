@@ -1,0 +1,13 @@
+.table-full-width {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.contain-to-grid .top-bar {
+  margin-bottom: 30px;
+}
+
+.sub-nav {
+  background-color: #f2f2f2;
+  padding: 10px 10px 10px 0;
+}

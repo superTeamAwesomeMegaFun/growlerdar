@@ -1,19 +1,9 @@
 module.exports = function(grunt) {
 
-  /**
-   * Initialize grunt
-   */
   grunt.initConfig({
 
-    /**
-     * Read package.json
-     */
     pkg: grunt.file.readJSON('package.json'),
 
-
-    /**
-     * Set banner
-     */
     banner: '/**\n' +
     '<%= pkg.title %> - <%= pkg.version %>\n' +
     '<%= pkg.homepage %>\n' +
@@ -21,10 +11,6 @@ module.exports = function(grunt) {
     'License: <%= pkg.license %>\n' +
     '*/\n',
 
-
-    /**
-     * Set directory paths
-     */
     dir: {
       js: 'js',
       css: 'css',
@@ -32,11 +18,6 @@ module.exports = function(grunt) {
       img: 'img'
     },
 
-
-    /**
-     * Minify .svg
-     * @github.com/sindresorhus/grunt-svgmin
-     */
     svgmin: {
       options: {
         plugins: [{
@@ -54,11 +35,6 @@ module.exports = function(grunt) {
       }
     },
 
-
-    /**
-     * Compress .jpg/.png
-     * @github.com/gruntjs/grunt-contrib-imagemin
-     */
     imagemin: {
       dist: {
         options: {
@@ -74,11 +50,6 @@ module.exports = function(grunt) {
       }
     },
 
-
-    /**
-     * Convert .svg to .png
-     * @github.com/dbushell/grunt-svg2png
-     */
     svg2png: {
       dist: {
         files: [{
@@ -87,11 +58,6 @@ module.exports = function(grunt) {
       }
     },
 
-
-    /**
-     * JSHint
-     * @github.com/gruntjs/grunt-contrib-jshint
-     */
     jshint: {
       gruntfile: 'Gruntfile.js',
       files: ['<%= dir.js %>/src/**/*.js'],
@@ -100,11 +66,6 @@ module.exports = function(grunt) {
       }
     },
 
-
-    /**
-     * Concatenate
-     * @github.com/gruntjs/grunt-contrib-concat
-     */
     concat: {
       options: {
         stripBanners: true,
@@ -116,11 +77,6 @@ module.exports = function(grunt) {
       },
     },
 
-
-    /**
-     * Sass compiling
-     * @github.com/gruntjs/grunt-contrib-sass
-     */
     sass: {
 
       // Development options
@@ -147,11 +103,6 @@ module.exports = function(grunt) {
       }
     },
 
-
-    /**
-     * Minify
-     * @github.com/gruntjs/grunt-contrib-uglify
-     */
     uglify: {
 
       // Uglify options
@@ -166,20 +117,10 @@ module.exports = function(grunt) {
       },
     },
 
-
-    /**
-     * Clean files
-     * @github.com/gruntjs/grunt-contrib-clean
-     */
     clean: {
       // Nothing yet!
     },
 
-
-    /**
-     * Watch
-     * @github.com/gruntjs/grunt-contrib-watch
-     */
     watch: {
 
       // JShint Gruntfile
@@ -213,11 +154,6 @@ module.exports = function(grunt) {
     }
   });
 
-
-  /**
-   * Default Task
-   * run `grunt`
-   */
   grunt.registerTask('default', [
     'jshint',           // JShint
     'concat:js',        // Concatenate main JS files
@@ -225,11 +161,6 @@ module.exports = function(grunt) {
     'sass:dev',         // Compile Sass with dev settings
   ]);
 
-
-  /**
-   * Production tast, use for deploying
-   * run `grunt production`
-   */
   grunt.registerTask('production', [
     'jshint',           // JShint
     'concat:js',        // Concatenate main JS files
@@ -240,21 +171,12 @@ module.exports = function(grunt) {
     'imagemin',         // Compress jpg/jpeg + png files
   ]);
 
-
-  /**
-   * Image Tasks
-   * run `grunt images`
-   */
   grunt.registerTask('images', [
     'svg2png',          // Convert svg files to png
     'svgmin',           // Compress svg files
     'imagemin',         // Compress jpg/jpeg + png files
   ]);
 
-
-  /**
-   * Load the plugins specified in `package.json`
-   */
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-sass');

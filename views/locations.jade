@@ -1,0 +1,49 @@
+extends layout
+
+block content
+  .row
+    .large-24.column
+      h1 #{title}
+    .large-24.column
+      a(href='#', data-reveal-id='addLocation', class='radius button tiny secondary right') Add Location
+    .large-24.column
+      #locationList
+        table.table-full-width
+          thead
+            th Location Name
+            th Street Address 1
+            th Street Address 2
+            th City
+            th State
+            th Zip
+            th Birthdate
+            th Gender
+            th Location
+            th
+          tbody
+
+      div(id='addLocation', class='reveal-modal', data-reveal, aria-labelledby='Add Sub', aria-hidden='true', role='dialog')
+        h3 Add Location
+        fieldset
+          .row
+            .large-10.column
+              label(for='inputLocationName') Sub Name
+              input#inputLocationName(type='text', required)
+            .large-10.column
+              label(for='inputLocationFullname') Full Name
+              input#inputLocationFullname(type='text', required)
+            .large-4.column
+              label(for='inputLocationGender') Gender
+              input#inputLocationGender(type='text', required)
+            .large-10.column
+              label(for='inputLocationEmail') Email
+              input#inputLocationEmail(type='email', required)
+            .large-7.column
+              label(for='inputLocationBirthdate') Birthdate
+              input#inputLocationBirthdate(type='date', required)
+            .large-7.column
+              label(for='inputLocationLocation') Location
+              input#inputLocationLocation(type='text', required)
+            .large-24.column
+              button#btnAddLocation Add Location
+        a(class='close-reveal-modal', aria-label='Close') &#215;

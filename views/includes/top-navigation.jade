@@ -1,0 +1,28 @@
+.contain-to-grid
+  nav(class='top-bar', data-topbar, role='navigation')
+    ul(class='title-area')
+      li(class='name')
+        h1
+          a(href='/') Growlerdar
+      li(class='toggle-topbar menu-icon')
+        a(href='#')
+          span Menu
+
+    section(class='top-bar-section')
+      ul(class='right')
+        li
+          a(href='/locations') Locations
+        li.divider
+        li(class='has-dropdown')
+          a(href='/beers') Beer
+          ul(class='dropdown')
+            li
+              label Filters
+            li
+              a(href='#') Breweries
+            li
+              a(href='#') Types
+        li.divider
+        li(class='has-dropdown')
+          a(href='#') Recent
+          ul(class='dropdown', id='menuRecentList')
