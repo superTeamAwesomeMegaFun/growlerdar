@@ -1,47 +1,50 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-  res.render('locations', { title: 'Locations' });
-});
+var handleError = function(err, res) {
+  console.log(err);
+  res.status(500).json({msg: 'server error'});
+};
 
-router.get('/:id', function(req, res, next) {
+router.get('/locations/:id', function(req, res, next) {
   var db = req.db;
 
   db.collection('locationlist').findById(req.params.id, function(err, result) {
-    if (err) return next(err)
-    //res.render('profile', { title: 'Profile for ' + result.locationname, result: result });
+    if (err) return handleError(err, res);
+
+    res.json(result);
   });
 });
 
-router.get('/locationlist', function(req, res) {
+router.get('/locations', function(req, res) {
   var db = req.db;
 
-  console.log("shoop");
-
-  db.collection('locationlist').find().toArray(function (err, items) {
-    console.log("whoop");
+  db.collection('locationlist').find({}).toArray(function(err, items) {
     console.log(items);
+    if (err) return handleError(err, res); 
+
     res.json(items);
   });
 });
 
-router.post('/addlocation', function(req, res) {
+router.post('/locations', function(req, res) {
   var db = req.db;
 
-  db.collection('locationlist').insert(req.body, function(err, result){
-    res.send(
-      (err === null) ? { msg: '' } : { msg: err }
-    );
+  db.collection('locationlist').insert(req.body, function(err, result) {
+    if (err) return handleError(err, res);
+
+    res.json(result);
   });
 });
 
-router.delete('/deletelocation/:id', function(req, res) {
+router.delete('/locations/:id', function(req, res) {
   var db = req.db;
   var locationToDelete = req.params.id;
 
   db.collection('locationlist').removeById(locationToDelete, function(err, result) {
-    res.send((result === 1) ? { msg: '' } : { msg:'error: ' + err });
+    if(err) return handleError(err, res);
+
+    res.json({msg: 'success!'});
   });
 });
 
