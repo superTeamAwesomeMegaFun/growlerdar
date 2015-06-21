@@ -11,6 +11,8 @@ block content
         table.table-full-width
           thead
             th Location Name
+            th Website
+            th Phone Number
             th Street Address 1
             th Street Address 2
             th City
@@ -22,20 +24,20 @@ block content
             th
           tbody
 
-      div(id='addLocation', class='reveal-modal', data-reveal, aria-labelledby='Add Sub', aria-hidden='true', role='dialog')
+      div(id='addLocation', class='reveal-modal', data-reveal, aria-labelledby='Add Location', aria-hidden='true', role='dialog')
         h3 Add Location
         fieldset
           .row
-            .large-10.column
-              label(for='inputLocationName') Sub Name
+            .large-24.column
+              label(for='inputLocationName') Location Name
               input#inputLocationName(type='text', required)
-            .large-10.column
-              label(for='inputLocationFullname') Full Name
-              input#inputLocationFullname(type='text', required)
-            .large-4.column
-              label(for='inputLocationGender') Gender
-              input#inputLocationGender(type='text', required)
-            .large-10.column
+            .large-24.column
+              label(for='inputLocationStreetAddress1') Street Address 1
+              input#inputLocationStreetAddress1(type='text', required)
+            .large-24.column
+              label(for='inputLocationStreetAddress2') Street Address 2
+              input#inputLocationStreetAddress2(type='text', required)
+            .large-24.column
               label(for='inputLocationEmail') Email
               input#inputLocationEmail(type='email', required)
             .large-7.column

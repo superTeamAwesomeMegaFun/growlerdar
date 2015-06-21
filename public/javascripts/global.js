@@ -14,13 +14,8 @@ $(document).ready(function() {
 function populateTable() {
   var tableContent = '';
 
-  console.log("pong");
-
-  $.getJSON('/locations/locationlist', function(data) {
+  $.getJSON('/api/locations', function(data) {
     GD.locationListData = data;
-
-    console.log("ping");
-    console.log(GD.locationListData);
 
     for (var i = 0, len = GD.locationListData.length; i < len; i++) {
       tableContent += '<tr>';
@@ -28,6 +23,12 @@ function populateTable() {
       tableContent += '<td>' + GD.locationListData[i].fullname + '</td>';
       tableContent += '<td>' + GD.locationListData[i].birthdate + '</td>';
       tableContent += '<td>' + GD.locationListData[i].gender + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
       tableContent += '<td>' + GD.locationListData[i].location + '</td>';
       tableContent += '<td>Edit / <a href="#" class="linkdeletelocation" rel="' + GD.locationListData[i]._id + '">Delete</a></td>';
       tableContent += '</tr>';
@@ -40,7 +41,7 @@ function populateTable() {
 function populateRecentMenuList() {
   var menuContent = '';
 
-  $.getJSON('/locations/locationlist', function(data) {
+  $.getJSON('/api/locations', function(data) {
     GD.locationListData = data;
 
     for (var i = 0, len = GD.locationListData.length; i < len; i++) {

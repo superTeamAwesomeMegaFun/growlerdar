@@ -20,7 +20,6 @@ router.get('/locations', function(req, res) {
   var db = req.db;
 
   db.collection('locationlist').find({}).toArray(function(err, items) {
-    console.log(items);
     if (err) return handleError(err, res); 
 
     res.json(items);
