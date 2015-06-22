@@ -19,17 +19,13 @@ function populateTable() {
 
     for (var i = 0, len = GD.locationListData.length; i < len; i++) {
       tableContent += '<tr>';
-      tableContent += '<td>' + GD.locationListData[i].locationname + '</td>';
-      tableContent += '<td>' + GD.locationListData[i].fullname + '</td>';
-      tableContent += '<td>' + GD.locationListData[i].birthdate + '</td>';
-      tableContent += '<td>' + GD.locationListData[i].gender + '</td>';
-      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
-      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
-      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
-      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
-      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
-      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
-      tableContent += '<td>' + GD.locationListData[i].location + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].locationName + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].streetAddress + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].city + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].state + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].postal + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].website + '</td>';
+      tableContent += '<td>' + GD.locationListData[i].phone + '</td>';
       tableContent += '<td>Edit / <a href="#" class="linkdeletelocation" rel="' + GD.locationListData[i]._id + '">Delete</a></td>';
       tableContent += '</tr>';
     }
@@ -61,30 +57,28 @@ function addLocation(event) {
   if(errorCount === 0) {
     var currentdate = new Date();
     var newLocation = {
-      'locationname': $('#addLocation fieldset input#inputLocationName').val(),
-      'email': $('#addLocation fieldset input#inputLocationEmail').val(),
-      'fullname': $('#addLocation fieldset input#inputLocationFullname').val(),
-      'birthdate': $('#addLocation fieldset input#inputLocationBirthdate').val(),
-      'location': $('#addLocation fieldset input#inputLocationLocation').val(),
-      'gender': $('#addLocation fieldset input#inputLocationGender').val(),
+      'locationName': $('#addLocation fieldset input#inputLocationName').val(),
+      'streetAddress': $('#addLocation fieldset input#inputLocationStreetAddress').val(),
+      'city': $('#addLocation fieldset input#inputLocationCity').val(),
+      'state': $('#addLocation fieldset input#inputLocationState').val(),
+      'postal': $('#addLocation fieldset input#inputLocationPostal').val(),
+      'website': $('#addLocation fieldset input#inputLocationUrl').val(),
+      'phone': $('#addLocation fieldset input#inputLocationPhone').val(),
       'lastupdated' : currentdate.toISOString()
     }
 
     $.ajax({
       type: 'POST',
       data: newLocation,
-      url: '/locations/addlocation',
+      url: '/api/locations',
       dataType: 'JSON'
     }).done(function(response) {
-      if (response.msg === '') {
-          $('#addLocation fieldset input').val('');
+      $('#addLocation fieldset input').val('');
 
-          populateTable();
-          populateRecentMenuList();
-          $('#addLocation').foundation('reveal', 'close');
-      } else {
-        alert('Error: ' + response.msg);
-      }
+      populateTable();
+      populateRecentMenuList();
+
+      $('#addLocation').foundation('reveal', 'close');
     });
   } else {
     alert('Please fill in all fields');
@@ -101,14 +95,8 @@ function deleteLocation(event) {
   if (confirmation === true) {
     $.ajax({
       type: 'DELETE',
-      url: '/locations/deletelocation/' + $(this).attr('rel')
+      url: '/api/locations/' + $(this).attr('rel')
     }).done(function(response) {
-      if (response.msg === '') {
-
-      } else {
-        alert('Error: ' + response.msg);
-      }
-          
       populateTable();
       populateRecentMenuList();
     });

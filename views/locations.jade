@@ -11,16 +11,12 @@ block content
         table.table-full-width
           thead
             th Location Name
-            th Website
-            th Phone Number
-            th Street Address 1
-            th Street Address 2
+            th Street Address
             th City
             th State
             th Zip
-            th Birthdate
-            th Gender
-            th Location
+            th Website
+            th Phone Number
             th
           tbody
 
@@ -32,20 +28,23 @@ block content
               label(for='inputLocationName') Location Name
               input#inputLocationName(type='text', required)
             .large-24.column
-              label(for='inputLocationStreetAddress1') Street Address 1
-              input#inputLocationStreetAddress1(type='text', required)
+              label(for='inputLocationStreetAddress') Street Address
+              input#inputLocationStreetAddress(type='text', required)
             .large-24.column
-              label(for='inputLocationStreetAddress2') Street Address 2
-              input#inputLocationStreetAddress2(type='text', required)
+              label(for='inputLocationCity') City
+              input#inputLocationCity(type='text')
             .large-24.column
-              label(for='inputLocationEmail') Email
-              input#inputLocationEmail(type='email', required)
-            .large-7.column
-              label(for='inputLocationBirthdate') Birthdate
-              input#inputLocationBirthdate(type='date', required)
-            .large-7.column
-              label(for='inputLocationLocation') Location
-              input#inputLocationLocation(type='text', required)
+              label(for='inputLocationState') State
+              input#inputLocationState(type='text')
+            .large-24.column
+              label(for='inputLocationPostal') Zip Code
+              input#inputLocationPostal(type='text')
+            .large-24.column
+              label(for='inputLocationUrl') Website
+              input#inputLocationUrl(type='url')
+            .large-24.column
+              label(for='inputLocationPhone') Phone Number
+              input#inputLocationPhone(type='tel')
             .large-24.column
               button#btnAddLocation Add Location
         a(class='close-reveal-modal', aria-label='Close') &#215;
