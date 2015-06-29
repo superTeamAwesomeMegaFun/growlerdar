@@ -80,6 +80,19 @@ var LocationTable = React.createClass({displayName: "LocationTable",
 });
 
 var FilterableLocationTable = React.createClass({displayName: "FilterableLocationTable",
+  loadLocations: function() {
+    $.ajax({
+      url: '/api/locations',
+      dataType: 'json',
+      success: function(data) {
+        this.setState({data: data})
+      }.bind(this),
+      error: function() {
+
+      }
+    });
+  },
+
   getInitialState: function() {
     return {
       filterText: '',
@@ -89,13 +102,8 @@ var FilterableLocationTable = React.createClass({displayName: "FilterableLocatio
   },
 
   componentDidMount: function() {
-    $.get(this.props.locations, function(result) {
-      if (this.isMounted()) {
-        this.setState({
-          data: result
-        });
-      }
-    }.bind(this));
+    this.loadLocations();
+    setInterval(this.loadLocations, 2000);
   },
 
   handleUserInput: function(filterText, inStockOnly) {
@@ -121,4 +129,4 @@ var FilterableLocationTable = React.createClass({displayName: "FilterableLocatio
   }
 });
 
-React.render(React.createElement(FilterableLocationTable, {locations: "/api/locations"}), document.getElementById("locationTable"));
+React.render(React.createElement(FilterableLocationTable, {data: "/api/locations"}), document.getElementById("locationTable"));
