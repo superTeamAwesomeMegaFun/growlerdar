@@ -103,6 +103,18 @@ module.exports = function(grunt) {
       }
     },
 
+    react: {
+      jsx: {
+        files: [{
+          expand: true,
+          cwd: 'public/javascripts/src',
+          src: '**/*.jsx',
+          dest: 'public/javascripts/build',
+          ext: '.js'
+        }]
+      }
+    },
+
     uglify: {
 
       // Uglify options
@@ -141,6 +153,11 @@ module.exports = function(grunt) {
         tasks: ['jshint', 'concat', 'uglify']
       },
 
+      react: {
+        files: 'public/javascripts/**/*.jsx',
+        tasks: ['react']
+      },
+
       // Live reload files
       livereload: {
         options: { livereload: true },
@@ -159,6 +176,7 @@ module.exports = function(grunt) {
     'concat:js',        // Concatenate main JS files
     'uglify',           // Minifiy concatenated JS file
     'sass:dev',         // Compile Sass with dev settings
+    'react',
   ]);
 
   grunt.registerTask('production', [
@@ -186,5 +204,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-svgmin');
   grunt.loadNpmTasks('grunt-svg2png');
+  grunt.loadNpmTasks('grunt-react');
 
 };
