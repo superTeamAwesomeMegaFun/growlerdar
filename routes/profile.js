@@ -1,4 +1,1 @@
-var express = require('express');
-var router = express.Router();
-
-module.exports = router;
+var router = module.exports = exports = require('express').Router();
