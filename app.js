@@ -9,6 +9,7 @@ var db = mongo.db("mongodb://localhost:27017/growlerdar", {native_parser:true});
 
 var routes = require('./routes/index');
 var locations = require('./routes/locations');
+var locationsViews = require('./view_routes/locations');
 var profile = require('./routes/profile');
 
 var app = express();
@@ -26,7 +27,8 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', routes);
-app.use('/locations', locations);
+app.use('/api', locations);
+app.use('/', locationsViews);
 
 // catch 404 and forward to error handler
 // TODO (TYLER): I might get rid of this and simplify not sure yet
@@ -49,6 +51,6 @@ if (app.get('env') === 'development') {
 }
 
 var port = process.env.PORT || 3000;
-app.listen(process.env.PORT || 3000, function() {
+app.listen(port, function() {
   console.log('server running on port: ' + port);
 });
