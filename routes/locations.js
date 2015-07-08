@@ -1,5 +1,4 @@
-var express = require('express');
-var router = express.Router();
+var router = module.exports = exports = require('express').Router();
 
 var handleError = function(err, res) {
   console.log(err);
@@ -46,5 +45,3 @@ router.delete('/locations/:id', function(req, res) {
     res.json({msg: 'success!'});
   });
 });
-
-module.exports = router;

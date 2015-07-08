@@ -1,9 +1,14 @@
-var express = require('express');
-var router = express.Router();
+'use strict';
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+var router = module.exports = exports = require('express').Router();
+var fs = require('fs');
+
+router.get('/', function(req, res) {
+  var splash = fs.createReadStream(__dirname + '/../views/splash.html');
+  splash.pipe(res);
 });
 
-module.exports = router;
+router.get('/splash.css', function(req, res) {
+  var splashStyle = fs.createReadStream(__dirname + '/../views/splash.css');
+  splashStyle.pipe(res);
+});
