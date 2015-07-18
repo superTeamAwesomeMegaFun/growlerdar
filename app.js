@@ -8,6 +8,7 @@ mongoose.connect(process.env.MONGO_URL || "mongodb://localhost:27017/growlerdar"
 
 var routes = require('./routes/index');
 var locations = require('./routes/locations');
+var beverages = require('./routes/beverages');
 var profile = require('./routes/profile');
 
 var app = express();
@@ -26,6 +27,7 @@ app.use(function(req, res, next) {
 
 app.use('/', routes);
 app.use('/api', locations);
+app.use('/api', beverages);
 
 // catch 404 and forward to error handler
 // TODO (TYLER): I might get rid of this and simplify not sure yet
