@@ -8,10 +8,12 @@
     "name": "Austin Hinderer",
     "url": "http://austinhinderer.com"
   },
-  "contributors": [{
-    "name": "Tyler Morgan",
-    "email": "tyler@codefellows.com"
-  }],
+  "contributors": [
+    {
+      "name": "Tyler Morgan",
+      "email": "tyler@codefellows.com"
+    }
+  ],
   "scripts": {
     "start": "node app.js"
   },
@@ -30,5 +32,10 @@
     "morgan": "~1.5.1",
     "mongodb": "~1.4",
     "mongoskin": "*"
+  },
+  "devDependencies": {
+    "chai": "^3.1.0",
+    "chai-http": "^1.0.0",
+    "mocha": "^2.2.5"
   }
 }

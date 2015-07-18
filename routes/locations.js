@@ -8,7 +8,7 @@ var handleError = function(err, res) {
 router.get('/locations/:id', function(req, res, next) {
   var db = req.db;
 
-  db.collection('locationlist').findById(req.params.id, function(err, result) {
+  db.collection('locations').findById(req.params.id, function(err, result) {
     if (err) return handleError(err, res);
 
     res.json(result);
@@ -18,7 +18,7 @@ router.get('/locations/:id', function(req, res, next) {
 router.get('/locations', function(req, res) {
   var db = req.db;
 
-  db.collection('locationlist').find({}).toArray(function(err, items) {
+  db.collection('locations').find({}).toArray(function(err, items) {
     if (err) return handleError(err, res); 
 
     res.json(items);
@@ -28,10 +28,10 @@ router.get('/locations', function(req, res) {
 router.post('/locations', function(req, res) {
   var db = req.db;
 
-  db.collection('locationlist').insert(req.body, function(err, result) {
+  db.collection('locations').insert(req.body, function(err, result) {
     if (err) return handleError(err, res);
 
-    res.json(result);
+    res.json(result[0]);
   });
 });
 
@@ -39,7 +39,7 @@ router.delete('/locations/:id', function(req, res) {
   var db = req.db;
   var locationToDelete = req.params.id;
 
-  db.collection('locationlist').removeById(locationToDelete, function(err, result) {
+  db.collection('locations').removeById(locationToDelete, function(err, result) {
     if(err) return handleError(err, res);
 
     res.json({msg: 'success!'});
