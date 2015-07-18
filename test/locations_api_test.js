@@ -4,17 +4,32 @@ var chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 var expect = chai.expect;
 
+var User = require(__dirname + '/../models/User');
+
 process.env.MONGO_URL = 'mongodb://localhost/growlerdar_test';
 require(__dirname + '/../app.js');
 
 describe('locations', function() {
   var db;
+  var token;
   before(function(done) {
     mongo.connect('mongodb://localhost/growlerdar_test', function(err, dbConn) {
       db = dbConn;
       done();
     });
-  }.bind(this));
+  });
+
+  before(function(done) {
+    chai.request('localhost:4000')
+      .post('/api/users')
+      .send({email: 'test@example.com', username: 'test', password: 'foobar123'})
+      .end(function(err, res) {
+        if (err) throw err;
+        token = res.body.token; 
+        done();
+      })
+  });
+
   after(function(done) {
     db.dropDatabase(function() {
       done();
@@ -34,7 +49,7 @@ describe('locations', function() {
   it('should create a new locations', function(done) {
     chai.request('localhost:4000')
     .post('/api/locations')
-    .send({name: 'test name'})
+    .send({name: 'test name', auth: token})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.name).to.eql('test name');
@@ -66,7 +81,7 @@ describe('locations', function() {
     it('should be able to update', function(done) {
       chai.request('localhost:4000')
         .put('/api/locations/' + testLocation._id)
-        .send({name: 'some new name'})
+        .send({name: 'some new name', auth: token})
         .end(function(err, res) {
           expect(err).to.eql(null);
           expect(res.body.msg).to.eql('success!');
@@ -77,6 +92,7 @@ describe('locations', function() {
     it('should be able to delete', function(done) {
       chai.request('localhost:4000')
         .delete('/api/locations/' + testLocation._id)
+        .send({auth: token})
         .end(function(err, res) {
           expect(err).to.eql(null);
           expect(res.body.msg).to.eql('success!');

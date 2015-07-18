@@ -27,15 +27,21 @@
     "node": ">=0.10.3"
   },
   "dependencies": {
+    "bcrypt": "^0.8.3",
     "body-parser": "~1.12.0",
     "debug": "~2.1.1",
+    "eat": "^0.1.1",
     "express": "~4.12.2",
     "mongoose": "^4.0.7",
-    "morgan": "~1.5.1"
+    "morgan": "~1.5.1",
+    "passport": "^0.2.2",
+    "passport-http": "^0.2.2"
   },
   "devDependencies": {
     "chai": "^3.1.0",
     "chai-http": "^1.0.0",
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "passport": "^0.2.2",
+    "passport-http": "^0.2.2"
   }
 }
