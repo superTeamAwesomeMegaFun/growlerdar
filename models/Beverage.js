@@ -5,7 +5,8 @@ var bevSchema = new mongoose.Schema({
   name: String,
   description: String,
   type: String,
-  flavorTags: String 
+  flavorTags: String,
+  lastModified: {type: Date, default: new Date()}
 });
 
 module.exports = mongoose.model('Beverage', bevSchema);
