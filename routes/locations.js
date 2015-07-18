@@ -1,10 +1,6 @@
 var router = module.exports = exports = require('express').Router();
 var Location = require(__dirname + '/../models/Location');
-
-var handleError = function(err, res) {
-  console.log(err);
-  res.status(500).json({msg: 'server error'});
-};
+var handleError = require('./handle_error');
 
 router.get('/locations/:id', function(req, res, next) {
   Location.findOne({_id: req.params.id}, function(err, result) {
@@ -19,6 +15,16 @@ router.get('/locations', function(req, res) {
     if (err) return handleError(err, res); 
 
     res.json(items);
+  });
+});
+
+router.put('/locations/:id', function(req, res) {
+  var newData = req.body;
+  delete newData._id;
+  Location.update({_id: req.params.id}, req.body, function(err, data) {
+    if (err) return handleError(err, res);
+
+    res.json({msg: 'success!'});
   });
 });
 
