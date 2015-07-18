@@ -10,7 +10,7 @@ require(__dirname + '/../app.js');
 describe('users', function() {
   var db, token;
   before(function(done) {
-    mongo.connect('mongodb://localhost/growlerdar', function(err, dbConn) {
+    mongo.connect('mongodb://localhost/growlerdar_test', function(err, dbConn) {
       db = dbConn;
       done();
     })
