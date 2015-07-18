@@ -9,6 +9,7 @@ var locationSchema = new mongoose.Schema({
     state: String
   },
   type: String,
+  lastModified: {type: Date, default: new Date()}
 });
 
 module.exports = mongoose.model('Location', locationSchema);
