@@ -2,9 +2,9 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
-var mongo = require('mongoskin');
-var db = mongo.db(process.env.MONGO_URL || "mongodb://localhost:27017/growlerdar", {native_parser:true});
+mongoose.connect(process.env.MONGO_URL || "mongodb://localhost:27017/growlerdar", {native_parser:true});
 
 var routes = require('./routes/index');
 var locations = require('./routes/locations');
@@ -21,11 +21,6 @@ app.use(bodyParser.json());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-app.use(function(req, res, next) {
-  req.db = db;
   next();
 });
 
