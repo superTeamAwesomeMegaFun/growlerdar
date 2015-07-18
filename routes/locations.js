@@ -1,5 +1,5 @@
 var router = module.exports = exports = require('express').Router();
-var toObjectId = require('mongoskin').toObjectID;
+var Location = require(__dirname + '/../models/Location');
 
 var handleError = function(err, res) {
   console.log(err);
@@ -7,9 +7,7 @@ var handleError = function(err, res) {
 };
 
 router.get('/locations/:id', function(req, res, next) {
-  var db = req.db;
-
-  db.collection('locations').findOne({_id: toObjectID(req.params.id)}, function(err, result) {
+  Location.findOne({_id: req.params.id}, function(err, result) {
     if (err) return handleError(err, res);
 
     res.json(result);
@@ -17,9 +15,7 @@ router.get('/locations/:id', function(req, res, next) {
 });
 
 router.get('/locations', function(req, res) {
-  var db = req.db;
-
-  db.collection('locations').find({}).toArray(function(err, items) {
+  Location.find({}, function(err, items) {
     if (err) return handleError(err, res); 
 
     res.json(items);
@@ -27,9 +23,8 @@ router.get('/locations', function(req, res) {
 });
 
 router.post('/locations', function(req, res) {
-  var db = req.db;
-
-  db.collection('locations').insert(req.body, function(err, result) {
+  var newLocation = new Location(req.body);
+  newLocation.save(req.body, function(err, result) {
     if (err) return handleError(err, res);
 
     res.json(result);
@@ -37,10 +32,7 @@ router.post('/locations', function(req, res) {
 });
 
 router.delete('/locations/:id', function(req, res) {
-  var db = req.db;
-  var locationToDelete = req.params.id;
-
-  db.collection('locations').removeById(locationToDelete, function(err, result) {
+  Location.remove({_id: req.params.id}, function(err, result) {
     if(err) return handleError(err, res);
 
     res.json({msg: 'success!'});
