@@ -1,4 +1,4 @@
-var mongo = require('mongodb').MongoClient;
+var mongoose = require('mongoose');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 chai.use(chaiHttp);
@@ -12,13 +12,6 @@ var Bev = require(__dirname + '/../models/Beverage');
 describe('beverages', function() {
   var db, token;
   before(function(done) {
-    mongo.connect('mongodb://localhost/growlerdar_test', function(err, dbConn) {
-      db = dbConn;
-      done();
-    });
-  });
-
-  before(function(done) {
     chai.request('localhost:4000')
       .post('/api/users')
       .send({email: 'test@example.com', username: 'test', password: 'foobar123'})
@@ -30,7 +23,7 @@ describe('beverages', function() {
   });
 
   after(function(done) {
-    db.dropDatabase(function() {
+    mongoose.connection.db.dropDatabase(function() {
       done();
     });
   });
@@ -59,12 +52,12 @@ describe('beverages', function() {
   describe('needs a resource in the db', function() {
     var testBev;
     before(function(done) {
-      var bev = new Bev({name: 'test beverage'});
-      bev.save(function(err, data) {
-        if (err) throw err;
-        testBev = data;
-        done();
-      });
+      new Bev({name: 'test beverage'})
+        .save(function(err, data) {
+          if (err) throw err;
+          testBev = data;
+          done();
+        });
     });
 
     it('should be able to get a single bev', function(done) {

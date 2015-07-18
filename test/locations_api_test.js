@@ -1,10 +1,11 @@
-var mongo = require('mongodb').MongoClient;
+var mongoose = require('mongoose');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 var expect = chai.expect;
 
 var User = require(__dirname + '/../models/User');
+var Location = require(__dirname + '/../models/Location');
 
 process.env.MONGO_URL = 'mongodb://localhost/growlerdar_test';
 require(__dirname + '/../app.js');
@@ -12,13 +13,6 @@ require(__dirname + '/../app.js');
 describe('locations', function() {
   var db;
   var token;
-  before(function(done) {
-    mongo.connect('mongodb://localhost/growlerdar_test', function(err, dbConn) {
-      db = dbConn;
-      done();
-    });
-  });
-
   before(function(done) {
     chai.request('localhost:4000')
       .post('/api/users')
@@ -31,7 +25,7 @@ describe('locations', function() {
   });
 
   after(function(done) {
-    db.dropDatabase(function() {
+    mongoose.connection.db.dropDatabase(function() {
       done();
     });
   });
@@ -60,10 +54,8 @@ describe('locations', function() {
   describe('needs a resource in the db', function() {
     var testLocation;
     before(function(done) {
-      var conn = db.collection('locations');
-      conn.insert({someVal: 'test val'}, function(err, result) {
-        if (err) console.log(err);
-        testLocation = result[0];
+      new Location({name: 'test val'}).save(function(err, data) {
+        testLocation = data;
         done();
       });
     });
@@ -73,7 +65,7 @@ describe('locations', function() {
       .get('/api/locations/' + testLocation._id)
       .end(function(err, res) {
         expect(err).to.eql(null);
-        expect(res.body.someVal).to.eql('test val');
+        expect(res.body.name).to.eql('test val');
         done();
       });
     });
