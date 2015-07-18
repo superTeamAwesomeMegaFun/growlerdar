@@ -8,15 +8,9 @@ require(__dirname + '/../app.js');
 
 describe('users', function() {
   var db, token;
-  before(function(done) {
-    mongo.connect('mongodb://localhost/growlerdar_test', function(err, dbConn) {
-      db = dbConn;
-      done();
-    })
-  });
 
   after(function(done) {
-    db.dropDatabase(function() {
+    mongoose.connection.db.dropDatabase(function() {
       done();
     });
   });
