@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 var chai = require('chai');
 var chaihttp = require('chai-http');
 chai.use(chaihttp);
