@@ -6,7 +6,9 @@ var locationSchema = new mongoose.Schema({
     streetAddress: String,
     city: String,
     postalCode: String,
-    state: String
+    state: String,
+    website: String,
+    phone: String
   },
   type: String,
   lastModified: {type: Date, default: new Date()}

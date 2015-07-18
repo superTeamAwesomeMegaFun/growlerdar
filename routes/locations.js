@@ -30,6 +30,7 @@ router.put('/locations/:id', function(req, res) {
 
 router.post('/locations', function(req, res) {
   var newLocation = new Location(req.body);
+
   newLocation.save(req.body, function(err, result) {
     if (err) return handleError(err, res);
 
